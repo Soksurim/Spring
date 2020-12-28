@@ -17,7 +17,7 @@ public class HelloSpring {
 					
 					@Override
 					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-						// 공통
+						// 공통 
 						System.out.println("입실 체크"); 
 						
 						//핵심코드 호출

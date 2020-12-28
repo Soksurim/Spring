@@ -3,11 +3,11 @@ package sample01;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 //핵심관심사항, Target
-//@ComponentScan("spring.conf")
-@Component
+//@Component
+
+@ComponentScan("spring.conf")
 public class MessageBeanImpl implements MessageBean {
 	private String str;
 

@@ -9,8 +9,11 @@ public class HelloSpring {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext03.xml");
 		MessageBean messageBean = (MessageBean) context.getBean("proxy");
 		messageBean.study();
+		
 		System.out.println("===================");
-		System.out.println("결과 = " + messageBean.game());
+		
+		String str = messageBean.game();
+		System.out.println("결과 = " + str);
 	}
 
 }

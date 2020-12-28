@@ -12,12 +12,13 @@ public class LoggingAroundAdvice implements MethodInterceptor{
 		System.out.println("# 어라운드 입실체크 start");
 		long start = System.currentTimeMillis();
 		
-		Object ob = invocation.proceed(); // 핵심코드 호출
+		Object ob = invocation.proceed(); // 핵심코드
+		
 		System.out.println("# 어라운드 입실체크 end");
 		long end = System.currentTimeMillis();
 		
-		System.out.println("start : " + start);
-		System.out.println("end : " + end);
+//		System.out.println("start : " + start);
+//		System.out.println("end : " + end);
 		System.out.println("걸린 시간 : " + (long)(end - start));
 		
 		return ob;
