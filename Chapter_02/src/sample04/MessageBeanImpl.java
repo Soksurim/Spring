@@ -1,0 +1,31 @@
+package sample04;
+
+public class MessageBeanImpl implements MessageBean {
+	private String name;
+	private String phone;
+	private String aa;
+	private Outputter outputter; //파일로 출력
+
+	public MessageBeanImpl(String name) {
+		System.out.println("1. MessageBeanImpl(String name) 생성자는 name을 입력한다.");
+		this.name = name;
+	}
+	
+	public void setPhone(String phone) {
+		System.out.println("5. setPhone(String phone)");
+		this.phone = phone;
+	}
+	public
+	void setOutputter(Outputter outputter) {
+		System.out.println("6. setOutputter(Outputter outputter)");
+		this.outputter = outputter;
+	}
+	
+	@Override
+	public void helloCall() {
+		System.out.println("helloCall()");
+		outputter.output("이름="+phone+"\t 핸드폰="+name);
+		System.out.println("h1");
+	}
+
+}

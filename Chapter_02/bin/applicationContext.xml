@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<bean id="mb" class="sample01.MessageBeanImpl">
+		
+		<!-- 생성자 -->
+		<constructor-arg>
+			<value>딸기</value>
+		</constructor-arg>
+		
+		<!-- Setter - setCost-->
+		<property name="cost">
+			<value>5000</value>
+		</property>
+		
+		<!-- Setter - setQty-->
+		<property name="qty" value="3"/>
+	</bean>
+	
+	
+	
+	<bean id="calc" class="sample02.Calculation">
+	
+ 	<constructor-arg name="a">
+		<value>36</value>
+	</constructor-arg> 
+	
+	<constructor-arg name="b" value="22"/>
+	
+	<property name="a">
+		<value>24</value>
+	</property>
+	
+	<property name="b" value="3"/>
+	
+	</bean>
+	
+		<!-- sample03 -->
+	<bean id="sungJukDTO" class="sample03.SungJukDTO">
+		<property name="name" value="홍길동"/>
+		<property name="kor">
+			<value>97</value>
+		</property>
+		<property name="eng">
+			<value>100</value>
+		</property>
+		<property name="math">
+			<value>95</value>
+		</property>
+	</bean>
+		
+<!-- 	<bean id="sungJukImpl" class="sample03.SungJukImpl">
+		<constructor-arg ref="sungJukDTO"/>
+	</bean> -->
+	
+	<bean id="sungJukDTO" class="sungJuk.SJ_DTO" scope="prototype">
+	<bean id="list" class="java.util.ArrayList"></bean>
+	<bean id="helloSpring" class="sungJuk.HelloSpring"></bean>
+	
+	<bean id="sungJukInput" class="sungJuk.SJ_Input" scope="prototype">
+		<property name="sungJukDTO" ref="sungJukDTO"></property>
+		<property name="list" ref="list"></property>
+	</bean>
+	
+	<bean id="sungJukOutput" class="sungJuk.SJ_Output">
+		<property name="list" ref="list"></property>
+	</bean>
+	
+	<bean id="sungJukModify" class="sungJuk.SJ_Modify">
+		<property name="list" ref="list"></property>
+	</bean>
+	
+	<bean id="sungJukDelete" class="sungJuk.SJ_Delete">
+		<property name="list" ref="list"></property>
+	</bean>
+	
+		<!-- sample04 -->
+	<bean id="messageBeanImpl2" class="sample04.MessageBeanImpl" scope="prototype">
+		<constructor-arg value="홍길동"/>
+		<property name="phone" value="010-123-1234"/>
+		<property name="outputter" ref="fileOutputter"/>
+	</bean>
+
+	<bean id="fileOutputter" class="sample04.FileOutputter" scope="prototype">
+		<property name="filePath" value="D:/"/>
+		<property name="fileName" value="result.txt"/>
+	</bean>
+	
+</beans>
