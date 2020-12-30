@@ -56,6 +56,25 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 		
 		String sql = "select * from usertable";
 		
+//		List<UserDTO> list =  getJdbcTemplate().query(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+//		
+//		for(int i = 0; i < list.size(); i++) {
+//			for(int j = 0; j < list.size(); j++) {
+//				if(list.get(i).getId().equals(list.get(j).getId()) && i != j) {
+//					System.out.println("# id " + list.get(i).getId() + "가 중복이므로 랜덤넘버로 수정됩니다.");
+//					
+//					if(list.get(i).getName().equals(list.get(j).getName())) {
+//						System.out.println("아이디까지 같으므로 삭제");
+//						this.getJdbcTemplate().execute("delete usertable where id = '"+ list.get(i).getId() +"'and name = '" + list.get(i).getName() + "' ");
+//					}else {
+//						this.getJdbcTemplate().execute("update usertable set id = '" + ((int)(Math.random()*888) + 111) + "' where id = '"+ list.get(i).getId() +"'and name = '" + list.get(i).getName() + "' ");
+//					}
+//				}
+//				break;
+//			}
+//		}
+//		
+		
 		// rowMapper (인터페이스) 한 줄을 Map으로 받는다.
 		
 		return getJdbcTemplate().query(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
@@ -66,6 +85,14 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 	public List<UserDTO> findById(String id) {
 		
 		String sql = "select * from usertable where id = '"+ id + "'";
+		
+		UserDTO dto = getJdbcTemplate().queryForObject(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+		//UserDTO dto = (UserDTO) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+		System.out.println("dto로 받은  ID :" +dto.getId());
+		System.out.println("dto로 받은  Name :" +dto.getName());
+		System.out.println("dto로 받은  pwd :" +dto.getPwd());
+		
+		getJdbcTemplate().execute("insert into usertable values('" + ((int)(Math.random()*889) + 111) + "','" + ((int)(Math.random()*889) + 111) + "','" + ((int)(Math.random()*889) + 111) + "')");
 		
 		return getJdbcTemplate().query(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
 		
@@ -92,5 +119,12 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 		int su = getNamedParameterJdbcTemplate().update(sql, map);
 		System.out.println("삭제성공? : " + su);
 	}
+	
+    public int delete(String id) {
+        String sql = "delete from usertable where id = ?";
+        
+        return getJdbcTemplate().update(sql, id);
+    }
+    
 }
 
