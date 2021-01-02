@@ -21,21 +21,3 @@ public class UserSelectService implements UserService {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

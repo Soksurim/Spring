@@ -7,10 +7,9 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<mvc:resources location="/view/" mapping="/view/**"></mvc:resources>
+<!-- 	<mvc:resources location="/view/" mapping="/view/**"></mvc:resources> -->
 	<!-- ** 는 하위폴더 전부 지정 * 하나는 바로밑 폴더만 -->
 
-	<bean id="helloController" class="com.controller.HelloController"></bean>
 
 
 	<!-- jsp -->
@@ -20,4 +19,5 @@
 		<property name="suffix" value=".jsp"></property> <!-- .jsp 확장자 붙이기 -->
 	</bean>
 
+	<bean id="helloController" class="com.controller.HelloController"></bean>
 </beans>
