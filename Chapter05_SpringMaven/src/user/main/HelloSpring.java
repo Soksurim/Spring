@@ -13,7 +13,7 @@ public class HelloSpring {
 		Scanner scan = new Scanner(System.in);
 		UserService userService = null;
 		int num;
-		
+	
 		while(true) {
 			System.out.println();
 			System.out.println("***************");
