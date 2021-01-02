@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import lombok.Setter;
 import user.bean.UserDTO;
+import user.dao.UserDAO;
 
 //@Service
 

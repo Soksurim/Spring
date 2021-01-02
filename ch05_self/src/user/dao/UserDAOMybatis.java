@@ -1,4 +1,4 @@
-package user.service;
+package user.dao;
 
 import java.util.List;
 import java.util.Map;
