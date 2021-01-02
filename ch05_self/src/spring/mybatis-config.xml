@@ -7,7 +7,7 @@
 	</typeAliases>
 
 	<mappers>
-		<mapper resource="user/dao/userMapper.xml"/>
+		<mapper resource="/user/dao/userMapper.xml"/>
 	</mappers>
 
 </configuration>

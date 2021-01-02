@@ -45,21 +45,21 @@
 		<property name="userDAO" ref="userDAOMybatis"></property>
 	</bean>
 	
-	<!-- select 
+	<!-- select -->
 	<bean id="userSelectService" class="user.service.UserSelectService">
 		<property name="userDAO" ref="userDAOMybatis"></property>
 	</bean>
 	
-	 update 
+	 <!-- update  -->
 	<bean id="userUpdateService" class="user.service.UserUpdateService">
 		<property name="userDAO" ref="userDAOMybatis"></property>
 	</bean>
-	
-	 delete 
+
+	<!--  delete  -->
 	<bean id="userDeleteService" class="user.service.UserDeleteService">
 		<property name="userDAO" ref="userDAOMybatis"></property>
 	</bean>
-	-->
+
 	
 	<bean id="userDTO" class="user.bean.UserDTO"></bean>
 	 

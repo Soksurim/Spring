@@ -26,7 +26,6 @@ public class HelloSpring {
 			System.out.print("   번호 입력 : ");
 			num = scan.nextInt();
 			if(num==5) break;
-			
 			if(num==1) userService = (UserService) context.getBean("userInsertService");
 			else if(num==2) userService = (UserService) context.getBean("userSelectService");
 			else if(num==3) userService = (UserService) context.getBean("userUpdateService");
@@ -36,7 +35,6 @@ public class HelloSpring {
 		}//while
 	}
 
-
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		HelloSpring helloSpring = new HelloSpring();
@@ -45,15 +43,3 @@ public class HelloSpring {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

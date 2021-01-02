@@ -1,11 +1,9 @@
 
 package user.bean;
 
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
-import lombok.Setter;
-
-@Setter
+@Data
 public class UserDTO {
 	
 	String name;
