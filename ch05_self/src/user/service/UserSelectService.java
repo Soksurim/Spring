@@ -2,11 +2,14 @@ package user.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.ComponentScan;
+
 import lombok.Setter;
 import user.bean.UserDTO;
 import user.dao.UserDAO;
 
 @Setter
+@ComponentScan("user.*")
 public class UserSelectService implements UserService {
 	private UserDAO userDAO;
 

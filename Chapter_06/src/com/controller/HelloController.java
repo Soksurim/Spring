@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
-	// request.setAttribute() 와 같은 기능
+	// requestCommand
 	@RequestMapping(value = "/hello.do", method=RequestMethod.GET)
 	public ModelAndView hello() {// 사용자가 만든 콜백메소드
 		ModelAndView mav = new ModelAndView();

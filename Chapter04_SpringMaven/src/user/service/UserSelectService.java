@@ -15,7 +15,13 @@ public class UserSelectService implements UserService {
 
 	@Override
 	public void execute() {
+		System.out.println("execute");
 		List<UserDTO> list = userDAO.getUserList();
+		
+		if(list == null) {
+			System.out.println("list is Null");
+			return;
+		}
 		
 		for(UserDTO userDTO : list) {
 			System.out.println(userDTO.getName()+"\t" + userDTO.getId()+"\t" + userDTO.getPwd());

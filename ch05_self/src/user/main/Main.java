@@ -17,9 +17,7 @@ public class Main {
 		new Main().menu(context);
 
 	}
-
-	java.io.BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+	
 	private void menu(ApplicationContext context) {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -27,6 +25,7 @@ public class Main {
 		int num;
 
 		while (true) {
+			
 			System.out.println();
 			System.out.println("―――――――――――――――――――――――");
 			System.out.println("#   1. 입력");
@@ -56,6 +55,10 @@ public class Main {
 				userService = (UserService) context.getBean("userUpdateService");
 			else if (num == 4)
 				userService = (UserService) context.getBean("userDeleteService");
+			else
+				continue;
+			
+			
 
 			userService.execute();
 

@@ -3,9 +3,12 @@ package user.service;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.springframework.context.annotation.ComponentScan;
+
 import lombok.Setter;
 import user.dao.UserDAO;
 
+@ComponentScan("user.*")
 public class UserDeleteService implements UserService {
 	@Setter
 	private UserDAO userDAO;

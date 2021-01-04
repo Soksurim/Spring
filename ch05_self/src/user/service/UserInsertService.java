@@ -12,8 +12,8 @@ import user.dao.UserDAO;
 
 //@Service
 
+@ComponentScan("user.*")
 @Setter
-@ComponentScan("user.conf")
 public class UserInsertService implements UserService {
 	//@Autowired
 	private UserDTO userDTO;

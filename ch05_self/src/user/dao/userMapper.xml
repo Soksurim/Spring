@@ -12,4 +12,17 @@
 		select * from usertable
 	</select>
 
+	<select id="getUser" parameterType="String" resultType="java.util.Map">
+		select * from usertable where id=#{id}
+	</select>
+	
+	<update id="modify" parameterType="java.util.Map">
+		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete usertable where id=#{id}
+	</delete>
+	
+
 </mapper>

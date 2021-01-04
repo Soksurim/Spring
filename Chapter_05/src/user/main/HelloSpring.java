@@ -3,6 +3,7 @@ package user.main;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import user.service.UserService;
@@ -10,6 +11,10 @@ import user.service.UserService;
 public class HelloSpring {
 	
 	public void menu(ApplicationContext context) {
+		
+//		SpringConfiguration.java을 직접 읽어온다.
+//		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+		
 		Scanner scan = new Scanner(System.in);
 		UserService userService = null;
 		int num;
