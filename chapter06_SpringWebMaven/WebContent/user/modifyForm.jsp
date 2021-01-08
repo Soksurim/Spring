@@ -1,130 +1,192 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수정</title>
+<title>Insert title here</title>
 <style type="text/css">
-#modifyFormDiv {
-	display: none;
+div {
+	color: red;
+	font-size: 8pt;
+	font-weight: bold;
 }
 
-#resultDiv {
-	font-size: 8px;
-	color: red;
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#nameDiv, #pwdDiv {
-	font-size: 8px;
-	color: red;
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 15%;
+  height: 10%;
 }
+
 </style>
 </head>
 <body>
-	<form id="modifyForm">
-		<h4>아이디 수정하기</h4>
-		<input type="text" id="modifyId" name="modifyId" placholder="수정할 아이디">
-		<input type="button" id="searchBtn" value="검색">
-		<div id="resultDiv"></div>
+<form id="modifyForm" name="modifyForm" >
+	<!-- ajax를 이용하므로
+	method="post" action="/chapter06_SpringWebMaven/user/write" 
+	는 빠진다-->
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+	<td width="100">이름</td>
+	<td>
+		<input type="text" name="name" id="name">
+		<div id="nameDiv"></div>
+	</td>
+</tr>
 
-		<div id="modifyFormDiv">
-			<table>
-				<tr>
-					<td>이름 <input type="text" id="name" name="name"
-						placeholder="이름">
-						<div id="nameDiv"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>아이디 <input type="text" id="id" name="id" placeholder="아이디">
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 <input type="text" id="pwd" name="pwd" placeholder="비밀번호">
-						<div id="pwdDiv"></div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-					<input type="button" id="modifyBtn" value="수정">
-					<input type="reset" id="resultBtn" value="취소">
-					</td>
-				</tr>
-			</table>
-		</div>
-	</form>
+<tr>
+	<td width="100">아이디</td>
+	<td>
+		<input type="text" name="id" id="id" readonly>
+		<div id="idDiv"></div>
+	</td>
+</tr>
 
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-	$('#searchBtn').click(function() {
-		$('#resultDiv').empty();
+<tr>
+	<td width="100">비밀번호</td>
+	<td>
+		<input type="password" name="pwd" id="pwd">
+		<div id="pwdDiv"></div>
+	</td>
+</tr>
 
-		if ($('#modifyId').val() == '') {
-			$('#resultDiv').text('먼저 아이디를 입력하세요');
+<tr>
+	<td colspan="2" align="center">
+		<input type="button" value="회원정보 수정" id="modifyBtn">
+		<input type="button" value="돌아가기" id="resetBtn">
+	</td>
+</tr>
+</table>
+</form>
 
-		} else {
-			$.ajax({
-				type : 'post',
-				url : '/chapter06_SpringWebMaven/user/getUser',
-				data : 'id=' + $('#modifyId').val(),
-				dataType : 'json',
-				success : function(data) {
-					//alert(JSON.stringify(data)); // 데이터 왔는지 찍어본다.
-					//if ($.isEmptyObject(data)) {
-					if (JSON.stringify(data) == JSON.stringify({})) {
-						// 현재 아이디가 없음
-						$('#resultDiv').text('수정할 아이디가 존재하지 않습니다. ');
+<!-- The Modal -->
+<div id="myModal" class="modal" >
 
-					} else {
-						// 수정할 아이디 있을 때 
-						$('#modifyFormDiv').css('display', 'block');
-						$('#name').attr('value', data.name);
-						$('#id').attr('value', data.id);
+  <!-- Modal content -->
+  <div class="modal-content">
+    <input type="input" id="inputId" placeholder="input ID">
+    <input type="button" id="okBtn" value="입력">
+    <div id="resultDiv">수정하려는 아이디를 입력하세요.</div>
+  </div>
 
-					}
+</div>
 
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" >
 
+	$('#resetBtn').click(function(){
+		$('#okBtn').trigger('click');
+	})
+
+	$(document).ready(function(){
+		$('#modifyForm').hide();
+		$('#myModal').css('display', 'block');
+		$('#okBtn').click(function() {
+			
+			if($('#inputId').val()==''){
+				$('#resultDiv').text('아이디 입력하시오');
+				$('#resultDiv').css('color', 'red');
+			}else{
+				
+		 			$.ajax({
+						type: 'post', 
+						url: '/chapter06_SpringWebMaven/user/getUser',
+						data: {'id' : $('#inputId').val()},
+						dataType: 'json',
+						success: function(mymind){
+							//alert(JSON.stringify(mymind));
+							if($.isEmptyObject(mymind)){
+								$('#resultDiv')
+								.text($('#inputId').val() + "는 등록된 아이디가 아닙니다.")
+								.css('color', 'blue')
+								.css('font-size','8pt')
+								.css('font-weight','bold');
+								
+							}else{
+								$('#modifyForm').show();
+								
+								$('#id').val(mymind.id)
+								.css('background-color','lightgrey')
+								.css('border-color','lightgrey');
+								
+								$('#name').val(mymind.name);
+								$('#pwd').val(mymind.pwd);
+								$('#myModal').css('display', 'none');
+							}
+							
+						},error: function(){ alert("실패"); }
+					}) 
+					
+			}
+			
+		});
 	});
-	$('#modifyBtn').click(function() {
-		$('#nameDiv').empty();
-		$('#pwdDiv').empty();
-
-		if ($('#name').val() == '') {
-			$('#nameDiv').text('이름 입력');
-		} else if ($('#pwd').val() == '') {
-			$('#pwdDiv').text('비밀번호 입력');
-		} else {
-
-			$.ajax({
-				type : 'post',
-				url : '/chapter06_SpringWebMaven/user/modify',
-				data : $('#modifyForm').serialize(),
-				success : function() {
-					alert("회원정보를 수정하였습니다");
-					location.href = '/chapter06_SpringWebMaven/main/index'
-				},
-				error : function(err) {
-					console.log(err);
-				}
-
-			});
-		}
-	});
-	// 취소했을 떄 가지고 왔던 데이터들을 싹다 지우는 reset이 아닌 원래 수정했던 내용 만 지우고 원래 db에 저장되어 있는 데이터를 불러오기 
-	// 그러기 위해서는 db를 한 번 더 가야한다. 
-$('#resultBtn').click(function(){
-	$('#searchBtn').trigger('click'); // resultBtn을 누르면 searchBtn을 누른 것과 같은 효과를 발생시켜라 : trigger
 	
+	
+	$('#modifyBtn').click(function(){
+		$('#nameDiv').empty();
+		$('#idDiv').empty();
+		$('#pwdDiv').empty();
+		
+		if($('#name').val()=='')
+			$('#nameDiv').text('이름을 입력하세요');
+		else if($('#id').val()=='')
+			$('#idDiv').text('아이디를 입력하세요');
+		else if($('#pwd').val()=='')
+			$('#pwdDiv').text('비밀번호를 입력하세요');
+		else
+			
+			$.ajax({
+				type: 'post', 
+				url: '/chapter06_SpringWebMaven/user/modify', 
+				
+				// serialize
+				data: $('#modifyForm').serialize(),
+				//성공했을 때 돌아오는 거
+				success: function(){
+					alert("회원수정 성공");
+				},
+				//실패했을 때 
+				error: function(){
+					alert("회원수정 실패");
+				}
+					
+			});
 	});
+		
 
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
