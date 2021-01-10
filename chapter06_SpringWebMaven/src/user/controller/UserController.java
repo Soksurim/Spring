@@ -20,7 +20,6 @@ import user.service.UserService;
 @RequestMapping("/user") 
 // 만약 /user/write로 들어갈때, 이 클래스로 들어온 순간 /user는 기본으로 깔고 간다.
 // 다음으로 write 메소드가 실행될때 /write가 추가된다.
-
 public class UserController {
 	@Autowired
 	private UserService userService;
