@@ -27,6 +27,16 @@
   
   <dependencies>
   
+  
+  	<!-- junit -->
+  	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.7.0</version>
+    <scope>test</scope>
+</dependency>
+  
   	<!-- Json -->
   	<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
 <dependency>
