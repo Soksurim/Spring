@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  
+  <definition name="root.*" template="/WEB-INF/view/inc/layout.jsp"> <!-- 그냥 *을 넣을수는 없으므로 root.를 붙여주고 IndexController에서도 root.index고 고쳐준다 -->
+    <put-attribute name="title" value="메인화면 이에유" />
+    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+    <put-attribute name="main" value="/WEB-INF/view/{1}.jsp" /> <!-- {1} 첫번째 와일드카드라는 뜻 -->
+    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+  </definition>
+  
+  <definition name="notice.*" template="/WEB-INF/view/customer/inc/layout.jsp">
+    <put-attribute name="title" value="공지할게_있어유" />
+    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/view/customer/inc/visual.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/view/customer/inc/aside.jsp" />
+    <put-attribute name="main" value="/WEB-INF/view/customer/notice/{1}.jsp" /> <!-- {1} 첫번째 와일드카드라는 뜻 -->
+    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+  </definition>
+
+
+</tiles-definitions>

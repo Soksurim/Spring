@@ -1,6 +1,7 @@
 package user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import user.bean.UserDTO;
 import user.dao.UserDAO;
 
-@Service
+@Service(value="userService")
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO userDAO;
@@ -22,28 +23,20 @@ public class UserServiceImpl implements UserService {
 	public String checkId(String id) {
 		UserDTO userDTO = userDAO.checkId(id);
 		
-		if(userDTO == null) {
+		if(userDTO == null)
 			return "사용 가능";
-		}else {
+		else
 			return "사용 불가능";
-		}
 	}
 
 	@Override
-	public List<UserDTO> getList() {
-		
-		List<UserDTO> list = userDAO.getList();
-		
-		return list;
+	public List<UserDTO> getUserList() {
+		return userDAO.getUserList();
 	}
 
 	@Override
 	public UserDTO getUser(String id) {
-		UserDTO userDTO = userDAO.checkId(id);
-		
-			return userDTO;
-		
-		
+		return userDAO.getUser(id);
 	}
 
 	@Override
@@ -51,4 +44,24 @@ public class UserServiceImpl implements UserService {
 		userDAO.modify(userDTO);
 	}
 
+	@Override
+	public void delete(String id) {
+		userDAO.delete(id);
+	}
+
+	@Override
+	public List<UserDTO> search(Map<String, String> map) {
+		return userDAO.search(map);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+

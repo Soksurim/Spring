@@ -1,10 +1,14 @@
 package user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,10 +20,8 @@ import net.sf.json.JSONObject;
 import user.bean.UserDTO;
 import user.service.UserService;
 
-@Controller
-@RequestMapping("/user") 
-// 만약 /user/write로 들어갈때, 이 클래스로 들어온 순간 /user는 기본으로 깔고 간다.
-// 다음으로 write 메소드가 실행될때 /write가 추가된다.
+@Controller 
+@RequestMapping("/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -30,79 +32,73 @@ public class UserController {
 		return "/user/writeForm";
 	}
 	
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	@ResponseBody
+	public void write(@ModelAttribute UserDTO userDTO) {
+		userService.write(userDTO);
+	}
+	
+	@RequestMapping(value="/checkId", 
+					produces = "application/String;charset=UTF-8",
+					method=RequestMethod.POST)
+	public @ResponseBody String checkId(String id) {
+		String result = userService.checkId(id);
+		return result;
+	}
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String list() {
 		return "/user/list";
 	}
 	
-
-	
-	@RequestMapping(value="getUserList", method=RequestMethod.POST)
-	@ResponseBody // getUserList.jsp 로 가는게 아니라 list로 돌아가야 함.
-	public Object getUserList() {
-		List<UserDTO> list = userService.getList();
-		System.out.println(list);
-		
-		JSONObject json = new JSONObject();
-//		JSONObject json = (JSONArray) list;
-		
-		if(list != null) {
-			JSONArray array = new JSONArray();
-			
-			for(int i = 0; i < list.size(); i++) {
-				UserDTO dto = list.get(i);
-				
-				JSONObject temp = new JSONObject();
-				temp.put("name", dto.getName());
-				temp.put("id", dto.getId());
-				temp.put("pwd", dto.getPwd());
-				
-				array.add(i, temp);
-				
-			}//for
-			
-			json.put("list", array);
-			System.out.println(json);
-			
-			return json;
-		}
-		
-		return json;
-	}
-	
+//	@RequestMapping(value="getUserList", method=RequestMethod.POST)
+//	@ResponseBody
+//	public JSONObject getUserList(){
+//		List<UserDTO> list = userService.getUserList();
+//		
+//		JSONObject json = new JSONObject();
 //		if(list != null) {
-//			for(UserDTO data : list) {
-//				System.out.println(data);
-//			}
+//			JSONArray array = new JSONArray();
+//			
+//			for(int i=0; i<list.size(); i++) {
+//				UserDTO userDTO = list.get(i);
+//				
+//				JSONObject temp = new JSONObject();
+//				temp.put("name", userDTO.getName());
+//				temp.put("id", userDTO.getId());
+//				temp.put("pwd", userDTO.getPwd());
+//				
+//				array.add(i, temp);
+//			}//for
+//			
+//			json.put("list", array);
 //		}
 //		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list", list);
-//		mav.setViewName("/user/list");
-//		return mav;
+//		System.out.println(json);
+//		return json;
+//	}
 	
+//	@RequestMapping(value="getUserList", method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map getUserList(){
+//		List<UserDTO> list = userService.getUserList();
+//		
+//		JSONArray array = JSONArray.fromObject(list);
+//		Map map = new HashMap();
+//		map.put("list", array);
+//		return map;
+//	}
 	
-	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public @ResponseBody void write(@ModelAttribute UserDTO userDTO) {
-		userService.write(userDTO);
-		// ajax로  페이지를 이동하지 않고 데이터를 db에 저장 후, writeForm으로 돌아오기 떄문에  return은 쓰이지 않는다.
-//		return "/user/write";
+	@RequestMapping(value="getUserList", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getUserList(){
+		List<UserDTO> list = userService.getUserList();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;
 	}
-	
-	@RequestMapping(value="/checkId", 
-			produces="application/String;charset=UTF-8", 
-			method=RequestMethod.GET)
-	@ResponseBody // viewResolver의 영향을 받지않고 불러온 곳(writeForm)으로 다시 돌아간다.
-	public String checkId(String id) {
-		
-		String result = userService.checkId(id);
-		
-			System.out.println(result);
-		
-			return result;
-		
-	}	
-	
 	
 	@RequestMapping(value="/modifyForm", method=RequestMethod.GET)
 	public String modifyForm() {
@@ -110,15 +106,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/getUser", method=RequestMethod.POST)
-	@ResponseBody 
-	public JSONObject getUser(@RequestParam String id) { // RequestParam 데이터 하나 받을 때.
-		UserDTO dto = userService.getUser(id);
-		JSONObject json = new JSONObject();
+	@ResponseBody
+	public JSONObject getUser(@RequestParam String id) {
+		UserDTO userDTO = userService.getUser(id);
 		
-		if(dto != null) {
-			json.put("name", dto.getName());
-			json.put("id", dto.getId());
-			json.put("pwd", dto.getPwd());
+		JSONObject json = new JSONObject();
+		if(userDTO != null) {
+			json.put("name", userDTO.getName());
+			json.put("id", userDTO.getId());
+			json.put("pwd", userDTO.getPwd());
 		}
 		
 		return json;
@@ -130,5 +126,72 @@ public class UserController {
 		userService.modify(userDTO);
 	}
 	
+	@RequestMapping(value="/deleteForm", method=RequestMethod.GET)
+	public String deleteForm() {
+		return "/user/deleteForm";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@ResponseBody
+	public void delete(@RequestParam String id) {
+		userService.delete(id);
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.POST)
+	@ResponseBody
+	//public JSONObject search(@RequestParam String searchOption, @RequestParam String searchText){
+	//public JSONObject search(@RequestParam Map<String, String> map){
+	//------------------
+	public JSONObject search(@RequestBody Map<String, String> map) {
+		System.out.println(map);
+		
+		//List<UserDTO> list = userService.search(searchOption, searchText);
+		List<UserDTO> list = userService.search(map);
+		
+		JSONObject json = new JSONObject();
+		if(list != null) {
+			JSONArray array = new JSONArray();
+			
+			for(int i=0; i<list.size(); i++) {
+				UserDTO userDTO = list.get(i);
+				
+				JSONObject temp = new JSONObject();
+				temp.put("name", userDTO.getName());
+				temp.put("id", userDTO.getId());
+				temp.put("pwd", userDTO.getPwd());
+				
+				array.add(i, temp);
+			}//for
+			
+			json.put("list", array);
+		}
+		
+		System.out.println(json);
+		return json;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

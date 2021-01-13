@@ -12,6 +12,6 @@
 <p><a href="/chapter06_SpringWebMaven/user/writeForm">입력</a></p>
 <p><a href="/chapter06_SpringWebMaven/user/list">출력</a></p>
 <p><a href="/chapter06_SpringWebMaven/user/modifyForm">수정</a></p>
-<p><a href="">삭제</a></p>
+<p><a href="/chapter06_SpringWebMaven/user/deleteForm">삭제</a></p>
 </body>
 </html>
