@@ -10,13 +10,13 @@
 
 	<context:component-scan base-package="com.newlecture.web.controller" />
 	<mvc:annotation-driven />
-
-	<bean name="/index" class="com.newlecture.web.controller.IndexController" />
-    <bean name="/notice/list" class="com.newlecture.web.controller.notice.ListController" > 
-   		<!-- <property name="noticeService" ref="noticeService" /> 세터대신 @Autowired로 연결-->
-    </bean>
-    
-    <bean name="/notice/detail" class="com.newlecture.web.controller.notice.DetailController" />
+<!-- 		<mvc:message-converters> @ResponseBody로 String 처리할때 한글처리
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<list>
+					<value>text/html;charset=UTF-8</value>
+				</list>			
+			</bean>
+		</mvc:message-converters>	 -->
     
 	<mvc:resources location="/static/" mapping="/**" />
 	<!-- static안에 들어가는 모든파일 & 하위 폴더의 내용까지 호출이 가능하며, 
@@ -32,9 +32,9 @@
 		<property name="definitions" value="/WEB-INF/tiles.xml" />
 	</bean>
 	
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!-- 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/"></property>
 		<property name="suffix" value=".jsp"></property>
 		<property name="order" value="2"></property>
-	</bean>
+	</bean> -->
 </beans>
