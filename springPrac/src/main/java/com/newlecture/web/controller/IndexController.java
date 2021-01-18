@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesView;
 
 @Controller
 @RequestMapping("/")
@@ -13,6 +15,7 @@ public class IndexController  {
 
 	@RequestMapping("index")
 	public String index() {
+		
 		
 		return "root.index";
 	}

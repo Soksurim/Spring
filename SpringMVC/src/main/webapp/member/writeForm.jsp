@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<form name="writeForm" method="post" action="write.do">
+<form name="writeForm" method="post" action="/spring/member/write">
 <h3>회원가입</h3>
 <hr>
 <table border="1" cellpadding="3" cellspacing="0">
@@ -9,7 +9,7 @@
 	<td width="100" align="center">이름</td>
 	<td>
 		<input type="text" id="name" name="name" placeholder="이름입력">
-		<div id="nameDiv" style="color: red; font-size: 8pt; font-weight: bold;"></div>
+		<div id="nameDiv"></div>
 	</td>
 </tr>
 
@@ -17,20 +17,25 @@
 	<td align="center">아이디</td>
 	<td>
 		<input type="text" id="id" name="id" size="25" placeholder="아이디 입력">
-		<input type="button" value="중복체크" onclick="checkId()">
-		<input type="hidden" name="check" value="">
-		<div id="idDiv" style="color: red; font-size: 8pt; font-weight: bold;"></div>
+		<input type="hidden" id="check" value="">
+		<div id="idDiv"></div>
 	</td>
 </tr>
 
 <tr>
 	<td align="center">비밀번호</td>
-	<td><input type="password" name="pwd" size="30"></td>
+	<td>
+		<input type="password" name="pwd" size="30">
+		<div id="pwdDiv"></div>
+	</td>
 </tr>
 
 <tr>
 	<td align="center">재확인</td>
-	<td><input type="password" name="repwd" size="30"></td>
+	<td>
+		<input type="password" name="repwd" size="30">
+		<div id="repwdDiv"></div>
+	</td>
 </tr>
 
 <tr>
@@ -73,7 +78,7 @@
 	<td align="center">주소</td>
 	<td>
 		<input type="text" id="postcode" name="zipcode" size="5" readonly>
-		<input type="button" value="우편번호검색" onclick="checkPost()"><br>
+		<input type="button" value="우편번호검색" id="checkPostBtn"><br>
 		<input type="text" id="address" name="addr1" size="50"  readonly placeholder="주소"><br>
 		<input type="text" id="detailAddress" name="addr2" size="50" placeholder="상세주소">
 	</td>
@@ -81,13 +86,13 @@
 
 <tr>
 	<td colspan="2" align="center">
-	<input type="button" value="회원가입" onclick="javascript:checkWrite()">
+	<input type="button" id="writeBtn" value="회원가입">
 	<input type="reset" value="다시작성">
 </tr>
 </table>
 </form>
-
-<script type="text/javascript" src="../js/member.js?ver=1"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/member.js"></script>
 
 
 

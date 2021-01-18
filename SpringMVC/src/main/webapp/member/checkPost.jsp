@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="../css/member.css">
 </head>
 <body>
-<form method="post" action="checkPost.do">
-<table border="1" width="100%" cellpadding="2" cellspacing="0">
+<form id="checkPostForm">
+<table id="checkPostTable" border="1" width="100%" cellpadding="2" cellspacing="0">
 <tr>
 	<td width="100" align="center">시도</td>
 	<td>
-		<select name="sido" style="width: 100px;">
+		<select name="sido" id="sido" style="width: 100px;">
 				<option>시도선택</option>
 				<option value="서울">서울</option>
 				<option value="인천">인천</option>
@@ -37,14 +37,14 @@
 			</select>
 	</td>
 	<td align="center" width="100">시.군.구</td>
-	<td><input type="text" name="sigungu"></td>
+	<td><input type="text" name="sigungu" id="sigungu"></td>
 </tr>
 
 <tr>
 	<td align="center">도로명</td>
 	<td colspan="3">
-		<input type="text" name="roadname" size="35">
-		<input type="submit" value="검색">
+		<input type="text" name="roadname" id="roadname" size="35">
+		<input type="button" id="checkPostSearchBtn" value="검색">
 	</td>
 </tr>
 
@@ -52,39 +52,12 @@
 	<td align="center">우편번호</td>
 	<td colspan="3" align="center">주소</td>
 </tr>
-	<c:if test="${requestScope.list != null }">
-		<c:forEach var="zipcodeDTO" items="${list }">
-		<c:set var="address">
-			${zipcodeDTO.sido
-			} ${zipcodeDTO.sigungu
-			} ${zipcodeDTO.yubmyundong
-			} ${zipcodeDTO.ri
-			} ${zipcodeDTO.roadname
-			} ${zipcodeDTO.buildingname }                                 
-		</c:set>
-		<tr>
-			<td align="center">${zipcodeDTO.zipcode }</td>
-			<td colspan="3">
-				<a href="#" id="addressA" onclick="checkPostClose('${zipcodeDTO.zipcode}', '${address }')">${address }</a>
-			</td>
-		</tr>
-		</c:forEach>
-	</c:if>
 </table>
 </form>
-
-<script>
-function checkPostClose(zipcode, address){
-	opener.document.forms[0].zipcode.value = zipcode;
-	opener.document.getElementById("address").value = address;
-	window.close();
-	opener.document.forms[0].addr2.focus();
-}
-</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/member.js"></script>
 </body>
 </html>
-
-
 
 
 

@@ -14,7 +14,7 @@ import com.newlecture.web.service.NoticeService;
 @Controller
 @RequestMapping("/customer/notice/")
 public class NoticeController  {
-	
+
 	@Autowired
 	private NoticeService noticeService;
 

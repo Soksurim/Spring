@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,15 @@ body {
 	</div>
 	
 	<div id="section">
-		<%-- <jsp:include page="${display }" /> --%>
+		<c:if test="${not empty display }">
+			<jsp:include page="${display }" />
+		</c:if>
+		<c:if test="${empty display }">
+		<h3>저희 홈페이지를 방문해주셔서 감사합니다. <br>
+		    Have a nice day!!
+		</h3>
+			<img alt="망상토끼" src="/spring/image/망상토끼.png">
+		</c:if>
 	</div>
 </div>
 

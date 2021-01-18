@@ -1,5 +1,6 @@
 package member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
+import member.bean.ZipcodeDTO;
 import member.dao.MemberDAO;
 
 @Service
@@ -31,7 +33,50 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public String checkId(String id) {
+		MemberDTO memberDTO = memberDAO.checkId(id);
+		
+		if(memberDTO == null)
+			return "non_exist";
+		else
+			return "exist";
+	}
+
+	@Override
+	public List<ZipcodeDTO> checkPostSearch(Map<String, String> map) {
+		return memberDAO.checkPostSearch(map);
+	}
+
+	@Override
+	public int write(MemberDTO memberDTO) {
+		return memberDAO.write(memberDTO);
+	}
+
+	@Override
+	public MemberDTO getMember(String id) {
+		return memberDAO.getMember(id);
+	}
+
+	@Override
+	public void modify(MemberDTO memberDTO) {
+		memberDAO.modify(memberDTO);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
