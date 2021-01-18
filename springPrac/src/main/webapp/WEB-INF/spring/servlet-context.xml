@@ -18,7 +18,7 @@
 			</bean>
 		</mvc:message-converters>	 -->
     
-	<mvc:resources location="/static/" mapping="/**" />
+	<mvc:resources location="/resources/" mapping="/**" />
 	<!-- static안에 들어가는 모든파일 & 하위 폴더의 내용까지 호출이 가능하며, 
 		파일을 불러올 때, static 폴더명을 붙여줄 필요가 없다. 
 		즉, static폴더가 ROOT가 된다. -->

@@ -4,11 +4,11 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
   
-  <definition name="root.*" template="/WEB-INF/view/inc/layout.jsp"> <!-- 그냥 *을 넣을수는 없으므로 root.를 붙여주고 IndexController에서도 root.index고 고쳐준다 -->
+  <definition name="root.*" template="/WEB-INF/view/tiles/layouts/client_layout.jsp"> <!-- 그냥 *을 넣을수는 없으므로 root.를 붙여주고 IndexController에서도 root.index고 고쳐준다 -->
     <put-attribute name="title" value="메인화면 이에유" />
-    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-    <put-attribute name="main" value="/WEB-INF/view/{1}.jsp" /> <!-- {1} 첫번째 와일드카드라는 뜻 -->
-    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+    <put-attribute name="header" value="/WEB-INF/view/tiles/template/client_header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/view/{1}.jsp" /> <!-- {1} 첫번째 와일드카드라는 뜻 -->
+    <put-attribute name="footer" value="/WEB-INF/view/tiles/template/client_footer.jsp" />
   </definition>
   
   <definition name="notice.*" template="/WEB-INF/view/customer/inc/layout.jsp">
